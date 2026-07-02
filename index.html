@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Pondasi Tiang Grup</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+</head>
+<body>
+
+<header>
+
+  <div class="header-left">
+
+    <img src="LAMBANG ITS.png" alt="Logo ITS">
+
+    <h1>Aplikasi Perhitungan Pondasi Tiang Grup</h1>
+
+  </div>
+
+  <button id="toggleMode">🌙 Dark Mode</button>
+
+</header>
+
+
+<main>
+
+  <section class="card input-card">
+
+    <h2>Input Data</h2>
+
+    <label>Diameter Tiang (cm)</label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="number" id="diameter" step="0.1" placeholder="contoh: 30">
+      <span id="diameterConvert" style="color:#999;font-size:0.9em;"></span>
+    </div>
+
+
+    <label>Q Izin Tekan</label>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;">
+      <input type="number" id="qijin" style="flex:1;">
+      <select id="satuanQijin" style="width:auto;flex-shrink:0;">
+        <option value="kN">kN</option>
+        <option value="Ton">Ton</option>
+      </select>
+    </div>
+
+
+    <label>Q Izin Cabut</label>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;">
+      <input type="number" id="qcabut" style="flex:1;">
+      <select id="satuanQcabut" style="width:auto;flex-shrink:0;">
+        <option value="kN">kN</option>
+        <option value="Ton">Ton</option>
+      </select>
+    </div>
+
+
+    <label>Beban Vertikal V</label>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;">
+      <input type="number" id="bebanV" style="flex:1;">
+      <select id="satuanV" style="width:auto;flex-shrink:0;">
+        <option value="kN">kN</option>
+        <option value="Ton">Ton</option>
+      </select>
+    </div>
+
+
+    <label>Momen Mx</label>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;">
+      <input type="number" id="mx" style="flex:1;">
+      <select id="satuanMx" style="width:auto;flex-shrink:0;">
+        <option value="kN.m">kN.m</option>
+        <option value="Ton.m">Ton.m</option>
+      </select>
+    </div>
+
+
+    <label>Momen My</label>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;">
+      <input type="number" id="my" style="flex:1;">
+      <select id="satuanMy" style="width:auto;flex-shrink:0;">
+        <option value="kN.m">kN.m</option>
+        <option value="Ton.m">Ton.m</option>
+      </select>
+    </div>
+
+
+    <label>Jumlah Tiang Arah X</label>
+    <input type="number" id="nx">
+
+
+    <label>Jumlah Tiang Arah Y</label>
+    <input type="number" id="ny">
+
+
+    <label>Jumlah Tiang pada Jarak Xmax</label>
+    <input type="number" id="x1" placeholder="contoh: 2">
+
+
+    <label>Jumlah Tiang pada Jarak Ymax</label>
+    <input type="number" id="y1" placeholder="contoh: 2">
+
+
+    <label>Jarak Tiang Arah X (Xmax)</label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="number" id="xmax" step="0.1" placeholder="contoh: 1.5">
+      <select id="xmaxUnit">
+        <option value="cm" selected>cm</option>
+        <option value="m">m</option>
+      </select>
+      <span id="xmaxConvert" style="color:#666;white-space:nowrap;"></span>
+    </div>
+
+
+    <label>Jarak Tiang Arah Y (Ymax)</label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="number" id="ymax" step="0.1" placeholder="contoh: 1.5">
+      <select id="ymaxUnit">
+        <option value="cm" selected>cm</option>
+        <option value="m">m</option>
+      </select>
+      <span id="ymaxConvert" style="color:#666;white-space:nowrap;"></span>
+    </div>
+
+
+    <label>Jarak Selimut Terluar Pondasi (cm)</label>
+    <input type="number" id="selimut" step="0.1" placeholder="contoh: 25" value="25">
+
+
+    <label>Metode Efisiensi</label>
+
+    <select id="metode">
+
+      <option value="converse">
+        Converse-Labarre
+      </option>
+
+      <option value="losangeles">
+        Los Angeles
+      </option>
+
+      <option value="seiler">
+        Seiler-Keeney
+      </option>
+
+    </select>
+
+
+    <button onclick="hitung()">
+      Hitung
+    </button>
+
+    <button onclick="isiContohSoal()">
+      Isi Soal
+    </button>
+
+    <button onclick="exportPDF()">
+      Export PDF
+    </button>
+
+  </section>
+
+
+
+  <section class="card result-card" id="hasilArea">
+
+    <h2>Hasil Perhitungan</h2>
+
+    <div id="hasil"></div>
+
+    <canvas
+      id="layoutCanvas"
+      width="820"
+      height="700">
+    </canvas>
+
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
