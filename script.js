@@ -166,6 +166,34 @@ setupForceConversion("my", "satuanMy", 9.80665);
 
 
 
+function getDasarTeoriMetode(metode) {
+  switch (metode) {
+    case "converse":
+      return `
+        <b>Dasar Teori Converse-Labarre:</b><br>
+        Metode ini berangkat dari asumsi bahwa kapasitas kelompok tiang menurun karena adanya interaksi antar tiang.
+        Semakin rapat susunan tiang dan semakin besar diameter tiang dibandingkan jarak antar tiang, maka efisiensi grup akan semakin kecil.
+        Dalam metode ini, pengaruh interaksi dinyatakan melalui sudut θ yang dihitung dari perbandingan diameter tiang dengan jarak antar tiang, lalu dikoreksi dengan jumlah tiang pada arah x dan y.
+      `;
+    case "losangeles":
+      return `
+        <b>Dasar Teori Los Angeles:</b><br>
+        Metode ini menggunakan pendekatan empiris untuk memperkirakan efisiensi grup berdasarkan susunan tiang dalam bentuk grid.
+        Prinsip utamanya adalah bahwa setiap tiang dalam kelompok tidak bekerja sepenuhnya independen karena pengaruh tiang-tiang lain di sekitarnya.
+        Semakin padat susunan tiang, semakin besar penurunan kapasitas efektif yang terjadi akibat interaksi tersebut.
+      `;
+    case "seiler":
+      return `
+        <b>Dasar Teori Seiler-Keeney:</b><br>
+        Metode ini memakai pendekatan praktis dengan nilai efisiensi grup yang dianggap tetap, biasanya sekitar 0,85.
+        Dasar teorinya adalah bahwa untuk kondisi tertentu, pengaruh interaksi antar tiang dapat dianggap cukup seragam sehingga efisiensi grup dapat diperkirakan dengan faktor konstan.
+        Metode ini sering dipakai untuk perhitungan awal karena lebih sederhana dan cepat.
+      `;
+    default:
+      return "";
+  }
+}
+
 function hitung(){
 
   console.log("=== HITUNG DIMULAI ===");
@@ -474,6 +502,9 @@ function hitung(){
 
     <h4>1. Rincian Efisiensi Grup</h4>
     <p>${rincianEfisiensi}</p>
+
+    <h4>Dasar Teori Metode</h4>
+    <p>${getDasarTeoriMetode(metode)}</p>
 
     <h4>2. Pengecekan Status Tekan</h4>
     <p>${rincianTekan}</p>

@@ -148,6 +148,11 @@ main {
   box-shadow: var(--shadow-lg);
 }
 
+.info-card {
+  padding: 28px 32px;
+  gap: 12px;
+}
+
 .input-card {
   padding: 32px;
   gap: 24px;
@@ -182,6 +187,51 @@ main {
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.info-card p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.citation {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.image-wrapper {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.image-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image-caption {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.info-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-primary);
+}
+
+.info-list li {
+  line-height: 1.7;
 }
 
 /* ============================================
